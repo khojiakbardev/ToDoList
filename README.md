@@ -1,73 +1,106 @@
-# Welcome to your Lovable project
+<h1 align="center">
+  KanbanBoard
+</h1>
 
-## Project info
+<h3 align="center">
+  A Kanban Board for project and task management
+</h3>
 
-**URL**: https://lovable.dev/projects/351da700-ed0b-4733-ae3c-2de4a20f2847
+![](kanbanboard.gif)
 
-## How can I edit this code?
+<p align="center">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/chamatt/tasks-kaban-board?color=%23FF9000">
 
-There are several ways of editing your application.
+  <a href="https://www.linkedin.com/in/matheus-vicente-d-190001b2/" target="_blank" rel="noopener noreferrer">
+    <img alt="Made by" src="https://img.shields.io/badge/made%20by-chamatt-%23FF9000">
+  </a>
 
-**Use Lovable**
+  <a href="https://github.com/chamatt/tasks-kaban-board/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/chamatt/tasks-kaban-board?color=%23FF9000">
+  </a>
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/351da700-ed0b-4733-ae3c-2de4a20f2847) and start prompting.
+  <a href="https://github.com/chamatt/tasks-kaban-board/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/chamatt/tasks-kaban-board?color=%23FF9000">
+  </a>
 
-Changes made via Lovable will be committed automatically to this repo.
+  <img alt="GitHub" src="https://img.shields.io/github/license/chamatt/tasks-kaban-board?color=%23FF9000">
+</p>
 
-**Use your preferred IDE**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+<p align="center">
+  <a href="#%EF%B8%8F-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-license">License</a>
+</p>
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 📔 About the project
 
-Follow these steps:
+A complete Kaban Board application. (Trello/Jira Clone)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+#### Features:
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+[✔] Fully accessible with keyboard navigation and interaction
 
-# Step 3: Install the necessary dependencies.
-npm i
+[✔] Add tasks to a board column
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+[✔] Remove tasks from board columns
+
+[✔] Rename tasks
+
+[✔] Move tasks to other board columns using drag and drop
+
+[✔] Create new board columns (e.g.: Todo, Done, Doing, QA...)
+
+[✔] Rename board columns
+
+## 🚀 Technologies
+
+Technologies that were used in this application
+
+- [Node.js](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/) [The project it fully typed]
+- [React](https://reactjs.org)
+- [Easy-Peasy Redux](https://github.com/ctrlplusb/easy-peasy) [Cool Redux Abstraction]
+- [React Beautiful DnD](https://github.com/atlassian/react-beautiful-dnd) [Drag-n-Drop Library]
+- [Chakra-UI](https://chakra-ui.com/) [Tailwind-like style library]
+
+## 💻 Getting started
+
+### Test the live version
+
+You can use the deployed application here: [KabanBoard](https://chamatt.github.io/KanbanBoard/)
+
+### Or build it yourself
+
+#### Requirements
+
+- [Node.js](https://nodejs.org/en/)
+- [Yarn](https://classic.yarnpkg.com/) or [npm](https://www.npmjs.com/)
+
+**Clone the project and access the folder**
+
+```bash
+$ git clone https://github.com/chamatt/tasks-kaban-board.git && cd tasks-kaban-board
 ```
 
-**Edit a file directly in GitHub**
+**Follow the steps below**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+# Install the dependencies
+$ yarn
 
-**Use GitHub Codespaces**
+# Run in dev mode
+$ yarn start
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# or generate a build
+$ yarn build
 
-## What technologies are used for this project?
+# Well done, project is started!
+```
 
-This project is built with:
+## 📝 License
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/351da700-ed0b-4733-ae3c-2de4a20f2847) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---
