@@ -1,8 +1,8 @@
 
-import TodoList from '@/components/TodoList';
+import KanbanBoard from '@/components/KanbanBoard';
 
 const Index = () => {
-  return <TodoList />;
+  return <KanbanBoard />;
 };
 
 export default Index;
