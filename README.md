@@ -6,7 +6,9 @@
   A Kanban Board for project and task management
 </h3>
 
-![](kanbanboard.gif)
+![image](https://github.com/user-attachments/assets/24982f79-0813-41f3-ac41-c860aa858448)
+
+
 
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/chamatt/tasks-kaban-board?color=%23FF9000">
