@@ -6,27 +6,10 @@
   A Kanban Board for project and task management
 </h3>
 
-![image](https://github.com/user-attachments/assets/24982f79-0813-41f3-ac41-c860aa858448)
+![image](https://github.com/user-attachments/assets/a74370e1-2c98-4878-a0dc-1b66fef739e9)
 
 
 
-<p align="center">
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/chamatt/tasks-kaban-board?color=%23FF9000">
-
-  <a href="https://www.linkedin.com/in/matheus-vicente-d-190001b2/" target="_blank" rel="noopener noreferrer">
-    <img alt="Made by" src="https://img.shields.io/badge/made%20by-chamatt-%23FF9000">
-  </a>
-
-  <a href="https://github.com/chamatt/tasks-kaban-board/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/chamatt/tasks-kaban-board?color=%23FF9000">
-  </a>
-
-  <a href="https://github.com/chamatt/tasks-kaban-board/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/chamatt/tasks-kaban-board?color=%23FF9000">
-  </a>
-
-  <img alt="GitHub" src="https://img.shields.io/github/license/chamatt/tasks-kaban-board?color=%23FF9000">
-</p>
 
 
 <p align="center">
