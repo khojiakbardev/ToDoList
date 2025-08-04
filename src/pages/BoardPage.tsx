@@ -1,8 +1,8 @@
-
+import React from 'react';
 import IssueBoard from '@/components/IssueBoard';
 
-const Index = () => {
+const BoardPage = () => {
   return <IssueBoard />;
 };
 
-export default Index;
+export default BoardPage;

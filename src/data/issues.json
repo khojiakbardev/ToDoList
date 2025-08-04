@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ISS-001",
+    "title": "Login sahifasida xatolik",
+    "description": "Foydalanuvchi noto'g'ri parol kiritganda xato xabar chiqmaydi",
+    "status": "backlog",
+    "severity": "high",
+    "assignee": "Ali Valiyev",
+    "tags": ["bug", "authentication", "frontend"],
+    "createdAt": "2024-08-01T10:00:00Z",
+    "updatedAt": "2024-08-01T10:00:00Z",
+    "userDefinedRank": 1
+  },
+  {
+    "id": "ISS-002", 
+    "title": "Dashboard yuklash tezligini optimallashtirish",
+    "description": "Dashboard sahifasi juda sekin yuklanmoqda, ma'lumotlar bazasi so'rovlarini optimallashtirish kerak",
+    "status": "in-progress",
+    "severity": "medium",
+    "assignee": "Sardor Karimov",
+    "tags": ["performance", "database", "optimization"],
+    "createdAt": "2024-07-28T14:30:00Z",
+    "updatedAt": "2024-08-02T09:15:00Z", 
+    "userDefinedRank": 2
+  },
+  {
+    "id": "ISS-003",
+    "title": "Mobile responsive dizayn",
+    "description": "Sayt mobil qurilmalarda to'g'ri ko'rinmaydi, responsive dizayn qo'shish kerak",
+    "status": "backlog",
+    "severity": "medium",
+    "assignee": "Nilufar Toshmatova",
+    "tags": ["frontend", "mobile", "css"],
+    "createdAt": "2024-07-25T16:45:00Z",
+    "updatedAt": "2024-07-25T16:45:00Z",
+    "userDefinedRank": 3
+  },
+  {
+    "id": "ISS-004",
+    "title": "API dokumentatsiyasi yaratish",
+    "description": "Backend API uchun to'liq dokumentatsiya tayyorlash, Swagger yoki OpenAPI ishlatish",
+    "status": "done",
+    "severity": "low",
+    "assignee": "Akmal Rustamov",
+    "tags": ["documentation", "api", "backend"],
+    "createdAt": "2024-07-20T11:20:00Z",
+    "updatedAt": "2024-07-30T17:00:00Z",
+    "userDefinedRank": 4
+  },
+  {
+    "id": "ISS-005",
+    "title": "Ma'lumotlar bazasi backup tizimi",
+    "description": "Avtomatik backup tizimi o'rnatish, har kuni ma'lumotlarni saqlash",
+    "status": "backlog",
+    "severity": "critical",
+    "assignee": "Bobur Ergashev",
+    "tags": ["database", "backup", "devops"],
+    "createdAt": "2024-08-03T08:00:00Z",
+    "updatedAt": "2024-08-03T08:00:00Z",
+    "userDefinedRank": 5
+  },
+  {
+    "id": "ISS-006",
+    "title": "Notifikatsiya tizimi qo'shish",
+    "description": "Email va in-app notifikatsiya tizimi yaratish, muhim hodisalar haqida xabar berish",
+    "status": "in-progress",
+    "severity": "medium",
+    "assignee": "Madina Yo'ldosheva",
+    "tags": ["feature", "notification", "email"],
+    "createdAt": "2024-07-29T13:10:00Z",
+    "updatedAt": "2024-08-01T11:30:00Z",
+    "userDefinedRank": 6
+  }
+]
