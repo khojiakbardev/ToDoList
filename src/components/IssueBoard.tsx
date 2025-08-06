@@ -238,24 +238,24 @@ const IssueBoard = () => {
             />
           </div>
           
-          <Select value={filters.assignee} onValueChange={(value) => setFilters(prev => ({ ...prev, assignee: value }))}>
+          <Select value={filters.assignee} onValueChange={(value) => setFilters(prev => ({ ...prev, assignee: value === 'all' ? '' : value }))}>
             <SelectTrigger>
               <SelectValue placeholder="Assignee bo'yicha" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Hammasi</SelectItem>
+              <SelectItem value="all">Hammasi</SelectItem>
               {Array.from(new Set(issues.map(i => i.assignee))).map(assignee => (
                 <SelectItem key={assignee} value={assignee}>{assignee}</SelectItem>
               ))}
             </SelectContent>
           </Select>
 
-          <Select value={filters.severity} onValueChange={(value) => setFilters(prev => ({ ...prev, severity: value as any }))}>
+          <Select value={filters.severity || 'all'} onValueChange={(value) => setFilters(prev => ({ ...prev, severity: value === 'all' ? '' : value as any }))}>
             <SelectTrigger>
               <SelectValue placeholder="Severity bo'yicha" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Hammasi</SelectItem>
+              <SelectItem value="all">Hammasi</SelectItem>
               <SelectItem value="low">Low</SelectItem>
               <SelectItem value="medium">Medium</SelectItem>
               <SelectItem value="high">High</SelectItem>
