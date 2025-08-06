@@ -238,7 +238,7 @@ const IssueBoard = () => {
             />
           </div>
           
-          <Select value={filters.assignee} onValueChange={(value) => setFilters(prev => ({ ...prev, assignee: value === 'all' ? '' : value }))}>
+          <Select value={filters.assignee || 'all'} onValueChange={(value) => setFilters(prev => ({ ...prev, assignee: value === 'all' ? '' : value }))}>
             <SelectTrigger>
               <SelectValue placeholder="Assignee bo'yicha" />
             </SelectTrigger>
