@@ -12,6 +12,7 @@ import { usePolling } from '@/hooks/usePolling';
 import IssueColumn from './IssueColumn';
 import IssueCard from './IssueCard';
 import RecentlyAccessedSidebar from './RecentlyAccessedSidebar';
+import { ThemeToggle } from './ThemeToggle';
 
 const IssueBoard = () => {
   const [issues, setIssues] = useState<Issue[]>([]);
@@ -42,7 +43,7 @@ const IssueBoard = () => {
   useEffect(() => {
     if (pollingError) {
       toast({
-        title: "Bog'lanish xatosi",
+        title: "Connection Error",
         description: pollingError.message,
         variant: "destructive"
       });
@@ -51,7 +52,7 @@ const IssueBoard = () => {
 
   // Calculate priority score for sorting
   const calculatePriorityScore = (issue: Issue): number => {
-    const severityScores = { low: 1, medium: 2, high: 3, critical: 4 };
+    const severityScores = { low: 1, medium: 2, high: 3 };
     const daysSinceCreated = Math.floor((Date.now() - issue.createdAt.getTime()) / (1000 * 60 * 60 * 24));
     
     return (severityScores[issue.severity] * 10) + (-daysSinceCreated) + issue.userDefinedRank;
@@ -127,8 +128,8 @@ const IssueBoard = () => {
       setCanUndo(issueApi.canUndo());
       
       toast({
-        title: "Issue harakatlandi",
-        description: `${issue.title} ${newStatus === 'backlog' ? 'Backlog' : newStatus === 'in-progress' ? 'In Progress' : 'Done'} ga o'tkazildi`,
+        title: "Issue moved",
+        description: `${issue.title} moved to ${newStatus === 'backlog' ? 'Backlog' : newStatus === 'in-progress' ? 'In Progress' : 'Done'}`,
         action: canUndo ? (
           <Button variant="outline" size="sm" onClick={handleUndo}>
             <RotateCcw className="w-4 h-4 mr-1" />
@@ -143,8 +144,8 @@ const IssueBoard = () => {
       ));
       
       toast({
-        title: "Xatolik",
-        description: error instanceof Error ? error.message : "Issue harakatlantirish amalga oshmadi",
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to move issue",
         variant: "destructive"
       });
     } finally {
@@ -165,14 +166,14 @@ const IssueBoard = () => {
         ));
         setCanUndo(false);
         toast({
-          title: "Harakat bekor qilindi",
-          description: "Oxirgi harakat muvaffaqiyatli bekor qilindi"
+          title: "Action undone",
+          description: "Last action successfully undone"
         });
       }
     } catch (error) {
       toast({
-        title: "Xatolik",
-        description: error instanceof Error ? error.message : "Bekor qilish amalga oshmadi",
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to undo action",
         variant: "destructive"
       });
     }
@@ -185,36 +186,38 @@ const IssueBoard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-2">
               Issue Board
             </h1>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
               {isLoading ? (
                 <>
                   <WifiOff className="w-4 h-4" />
-                  <span>Yangilanmoqda...</span>
+                  <span>Updating...</span>
                 </>
               ) : (
                 <>
                   <Wifi className="w-4 h-4" />
-                  <span>Oxirgi yangilanish: {lastSync?.toLocaleTimeString('uz-UZ')}</span>
+                  <span>Last sync: {lastSync?.toLocaleTimeString('en-US')}</span>
                 </>
               )}
             </div>
           </div>
           
           <div className="flex items-center gap-2">
+            <ThemeToggle />
+            
             <Button
               variant="outline"
               onClick={() => setShowRecentSidebar(!showRecentSidebar)}
             >
               <Clock className="w-4 h-4 mr-2" />
-              So'ngi ko'rilganlar
+              Recently Viewed
             </Button>
             
             {canUndo && (
@@ -227,11 +230,11 @@ const IssueBoard = () => {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 p-6 bg-white rounded-2xl shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
-              placeholder="Qidirish (title yoki tag)..."
+              placeholder="Search (title or tag)..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
               className="pl-10"
@@ -240,10 +243,10 @@ const IssueBoard = () => {
           
           <Select value={filters.assignee || 'all'} onValueChange={(value) => setFilters(prev => ({ ...prev, assignee: value === 'all' ? '' : value }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Assignee bo'yicha" />
+              <SelectValue placeholder="Filter by assignee" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Hammasi</SelectItem>
+              <SelectItem value="all">All</SelectItem>
               {Array.from(new Set(issues.map(i => i.assignee))).map(assignee => (
                 <SelectItem key={assignee} value={assignee}>{assignee}</SelectItem>
               ))}
@@ -252,35 +255,34 @@ const IssueBoard = () => {
 
           <Select value={filters.severity || 'all'} onValueChange={(value) => setFilters(prev => ({ ...prev, severity: value === 'all' ? '' : value as any }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Severity bo'yicha" />
+              <SelectValue placeholder="Filter by severity" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Hammasi</SelectItem>
+              <SelectItem value="all">All</SelectItem>
               <SelectItem value="low">Low</SelectItem>
               <SelectItem value="medium">Medium</SelectItem>
               <SelectItem value="high">High</SelectItem>
-              <SelectItem value="critical">Critical</SelectItem>
             </SelectContent>
           </Select>
 
           <Select value={filters.sortBy} onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value as any }))}>
             <SelectTrigger>
-              <SelectValue placeholder="Saralash" />
+              <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="priority">Priority bo'yicha</SelectItem>
-              <SelectItem value="created">Yaratilgan vaqt</SelectItem>
-              <SelectItem value="updated">Yangilangan vaqt</SelectItem>
+              <SelectItem value="priority">By Priority</SelectItem>
+              <SelectItem value="created">Created Date</SelectItem>
+              <SelectItem value="updated">Updated Date</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         {/* User Role Info */}
         {currentUser.role === 'contributor' && (
-          <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-yellow-800">
-              <strong>Diqqat:</strong> Siz "contributor" roliga egasiz. Faqat ko'rish imkoniyatingiz bor.
-              Issue'larni harakatlantirish uchun admin roli kerak.
+          <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+            <p className="text-yellow-800 dark:text-yellow-200">
+              <strong>Notice:</strong> You have "contributor" role. You can only view issues.
+              Admin role is required to move issues.
             </p>
           </div>
         )}

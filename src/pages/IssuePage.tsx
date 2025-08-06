@@ -54,8 +54,8 @@ const IssuePage = () => {
   const handleEdit = () => {
     if (currentUser.role !== 'admin') {
       toast({
-        title: "Ruxsat yo'q",
-        description: "Tahrirlash uchun admin roli kerak",
+        title: "Permission Denied",
+        description: "Admin role required for editing",
         variant: "destructive"
       });
       return;
@@ -76,13 +76,13 @@ const IssuePage = () => {
       setIsEditing(false);
       
       toast({
-        title: "Saqlandi",
-        description: "Issue muvaffaqiyatli yangilandi"
+        title: "Saved",
+        description: "Issue updated successfully"
       });
     } catch (err) {
       toast({
-        title: "Xatolik",
-        description: err instanceof Error ? err.message : "Saqlashda xatolik",
+        title: "Error",
+        description: err instanceof Error ? err.message : "Failed to save",
         variant: "destructive"
       });
     }
@@ -103,8 +103,8 @@ const IssuePage = () => {
 
     if (currentUser.role !== 'admin') {
       toast({
-        title: "Ruxsat yo'q",
-        description: "Issue'ni resolved qilish uchun admin roli kerak",
+        title: "Permission Denied",
+        description: "Admin role required to resolve issues",
         variant: "destructive"
       });
       return;
@@ -117,13 +117,13 @@ const IssuePage = () => {
       setIssue(updatedIssue);
       
       toast({
-        title: "Issue resolved qilindi",
-        description: "Issue 'Done' statusga o'tkazildi"
+        title: "Issue Resolved",
+        description: "Issue moved to 'Done' status"
       });
     } catch (err) {
       toast({
-        title: "Xatolik",
-        description: err instanceof Error ? err.message : "Resolved qilishda xatolik",
+        title: "Error",
+        description: err instanceof Error ? err.message : "Failed to resolve issue",
         variant: "destructive"
       });
     } finally {
@@ -133,11 +133,10 @@ const IssuePage = () => {
 
   const getSeverityColor = (severity: Issue['severity']) => {
     switch (severity) {
-      case 'low': return 'bg-green-100 text-green-800 border-green-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'high': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'critical': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'low': return 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900 dark:text-green-200 dark:border-green-800';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900 dark:text-yellow-200 dark:border-yellow-800';
+      case 'high': return 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900 dark:text-red-200 dark:border-red-800';
+      default: return 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700';
     }
   };
 
@@ -171,11 +170,11 @@ const IssuePage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4 md:p-8">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center py-12">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4" />
-            <p className="text-gray-600">Issue yuklanmoqda...</p>
+            <p className="text-gray-600 dark:text-gray-400">Loading issue...</p>
           </div>
         </div>
       </div>

@@ -52,18 +52,16 @@ const IssueCard: React.FC<IssueCardProps> = ({
 
   const getSeverityColor = (severity: Issue['severity']) => {
     switch (severity) {
-      case 'low': return 'bg-green-100 text-green-800';
-      case 'medium': return 'bg-yellow-100 text-yellow-800';
-      case 'high': return 'bg-orange-100 text-orange-800';
-      case 'critical': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      case 'low': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+      case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
+      case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200';
     }
   };
 
   const getSeverityIcon = (severity: Issue['severity']) => {
     switch (severity) {
-      case 'critical': return '🔴';
-      case 'high': return '🟠';
+      case 'high': return '🔴';
       case 'medium': return '🟡';
       case 'low': return '🟢';
       default: return '⚪';
@@ -81,12 +79,14 @@ const IssueCard: React.FC<IssueCardProps> = ({
   return (
     <div
       ref={setNodeRef}
-      style={style}
+      style={{
+        transform: CSS.Transform.toString(transform),
+        opacity: isDragging ? 0 : 1,
+      }}
       {...(disabled ? {} : { ...attributes, ...listeners })}
       className={`
-        group bg-white rounded-xl border border-gray-200 p-4 transition-all duration-200
+        group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 transition-all duration-200
         ${!disabled ? 'hover:shadow-lg hover:scale-[1.02] cursor-pointer' : 'cursor-default'}
-        ${isDragging ? 'shadow-2xl rotate-3 scale-105' : ''}
         ${isPending ? 'opacity-50' : ''}
         ${disabled ? 'opacity-75' : ''}
         relative overflow-hidden

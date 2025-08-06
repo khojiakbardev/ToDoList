@@ -1,5 +1,5 @@
 export type IssueStatus = 'backlog' | 'in-progress' | 'done';
-export type IssueSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type IssueSeverity = 'low' | 'medium' | 'high';
 export type UserRole = 'admin' | 'contributor';
 
 export interface User {
