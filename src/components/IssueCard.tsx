@@ -85,8 +85,8 @@ const IssueCard: React.FC<IssueCardProps> = ({
       }}
       {...(disabled ? {} : { ...attributes, ...listeners })}
       className={`
-        group bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 transition-all duration-200
-        ${!disabled ? 'hover:shadow-lg hover:scale-[1.02] cursor-pointer' : 'cursor-default'}
+        group bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-3 transition-all duration-200
+        ${!disabled ? 'hover:shadow-md cursor-pointer' : 'cursor-default'}
         ${isPending ? 'opacity-50' : ''}
         ${disabled ? 'opacity-75' : ''}
         relative overflow-hidden
@@ -95,23 +95,30 @@ const IssueCard: React.FC<IssueCardProps> = ({
       {/* Pending indicator */}
       {isPending && (
         <div className="absolute top-2 right-2">
-          <Loader2 className="w-4 h-4 animate-spin text-blue-500" />
+          <Loader2 className="w-3 h-3 animate-spin text-blue-500" />
         </div>
       )}
 
-      {/* Issue ID and Severity */}
+      {/* Header with ID and Severity */}
       <div className="flex items-center justify-between mb-2">
-        <Link 
-          to={`/issue/${issue.id}`}
-          onClick={handleClick}
-          className="text-sm font-mono text-blue-600 hover:text-blue-800 hover:underline"
-        >
-          {issue.id}
-        </Link>
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xs font-medium">
+            {issue.assignee.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+          </div>
+          <Link 
+            to={`/issue/${issue.id}`}
+            onClick={handleClick}
+            className="text-xs font-mono text-gray-500 hover:text-blue-600"
+          >
+            {issue.id}
+          </Link>
+        </div>
         <div className="flex items-center gap-1">
-          <span className="text-sm">{getSeverityIcon(issue.severity)}</span>
-          <Badge variant="secondary" className={getSeverityColor(issue.severity)}>
-            {issue.severity}
+          <Badge 
+            variant="secondary" 
+            className={`text-xs px-2 py-0.5 ${getSeverityColor(issue.severity)}`}
+          >
+            {issue.severity.toUpperCase()}
           </Badge>
         </div>
       </div>
@@ -122,58 +129,45 @@ const IssueCard: React.FC<IssueCardProps> = ({
         onClick={handleClick}
         className="block"
       >
-        <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-900 transition-colors">
+        <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1 text-sm line-clamp-2 group-hover:text-blue-900 transition-colors">
           {issue.title}
         </h3>
       </Link>
 
       {/* Description */}
-      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+      <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
         {issue.description}
       </p>
 
       {/* Tags */}
       {issue.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1 mb-3">
-          {issue.tags.slice(0, 3).map((tag, index) => (
-            <Badge key={index} variant="outline" className="text-xs">
-              <Tag className="w-3 h-3 mr-1" />
+        <div className="flex flex-wrap gap-1 mb-2">
+          {issue.tags.slice(0, 2).map((tag, index) => (
+            <span key={index} className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
               {tag}
-            </Badge>
+            </span>
           ))}
-          {issue.tags.length > 3 && (
-            <Badge variant="outline" className="text-xs">
-              +{issue.tags.length - 3}
-            </Badge>
+          {issue.tags.length > 2 && (
+            <span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">
+              +{issue.tags.length - 2}
+            </span>
           )}
         </div>
       )}
 
       {/* Footer */}
-      <div className="flex items-center justify-between text-xs text-gray-500">
-        <div className="flex items-center gap-1">
-          <User className="w-3 h-3" />
-          <span className="truncate max-w-[100px]">{issue.assignee}</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <Calendar className="w-3 h-3" />
-          <span>{formatDate(issue.updatedAt)}</span>
-        </div>
+      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <span>{formatDate(issue.updatedAt)}</span>
+        {issue.severity === 'high' && (
+          <AlertCircle className="w-3 h-3 text-red-500" />
+        )}
       </div>
-
-      {/* Status indicator line */}
-      <div className={`
-        absolute bottom-0 left-0 right-0 h-1 transition-all duration-200
-        ${issue.status === 'backlog' ? 'bg-gray-500' : ''}
-        ${issue.status === 'in-progress' ? 'bg-blue-500' : ''}
-        ${issue.status === 'done' ? 'bg-green-500' : ''}
-      `} />
 
       {/* Disabled overlay */}
       {disabled && (
         <div className="absolute inset-0 bg-gray-100 bg-opacity-50 flex items-center justify-center">
           <span className="text-xs text-gray-600 bg-white px-2 py-1 rounded">
-            Faqat ko'rish
+            View Only
           </span>
         </div>
       )}

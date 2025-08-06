@@ -189,23 +189,24 @@ const IssueBoard = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-              Issue Board
-            </h1>
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-              {isLoading ? (
-                <>
-                  <WifiOff className="w-4 h-4" />
-                  <span>Updating...</span>
-                </>
-              ) : (
-                <>
-                  <Wifi className="w-4 h-4" />
-                  <span>Last sync: {lastSync?.toLocaleTimeString('en-US')}</span>
-                </>
-              )}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.89 1 3 1.89 3 3V21C3 22.11 3.89 23 5 23H11V21H5V3H13V9H21Z"/>
+              </svg>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">
+                  Issue Board
+                </h1>
+                <span className="text-sm text-gray-500 dark:text-gray-400">admin</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                <Clock className="w-3 h-3" />
+                <span>Last sync: {lastSync ? lastSync.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) : 'Never'}</span>
+              </div>
             </div>
           </div>
           
@@ -230,14 +231,14 @@ const IssueBoard = () => {
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <Input
-              placeholder="Search (title or tag)..."
+              placeholder="Search issues by title or tags..."
               value={filters.search}
               onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
-              className="pl-10"
+              className="pl-10 h-9"
             />
           </div>
           
@@ -279,8 +280,8 @@ const IssueBoard = () => {
 
         {/* User Role Info */}
         {currentUser.role === 'contributor' && (
-          <div className="mb-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-            <p className="text-yellow-800 dark:text-yellow-200">
+          <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+            <p className="text-yellow-800 dark:text-yellow-200 text-sm">
               <strong>Notice:</strong> You have "contributor" role. You can only view issues.
               Admin role is required to move issues.
             </p>

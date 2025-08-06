@@ -52,10 +52,10 @@ const RecentlyAccessedSidebar: React.FC<RecentlyAccessedSidebarProps> = ({
     const hours = Math.floor(diff / (1000 * 60 * 60));
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    if (minutes < 1) return 'Hozir';
-    if (minutes < 60) return `${minutes} daqiqa oldin`;
-    if (hours < 24) return `${hours} soat oldin`;
-    return `${days} kun oldin`;
+    if (minutes < 1) return 'Now';
+    if (minutes < 60) return `${minutes}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    return `${days}d ago`;
   };
 
   const getSeverityColor = (severity: Issue['severity']) => {
@@ -78,12 +78,12 @@ const RecentlyAccessedSidebar: React.FC<RecentlyAccessedSidebarProps> = ({
       />
 
       {/* Sidebar */}
-      <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl z-50 overflow-y-auto transform transition-transform">
+      <div className="fixed right-0 top-0 h-full w-96 bg-white dark:bg-gray-800 shadow-2xl z-50 overflow-y-auto transform transition-transform">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center gap-2">
-            <Clock className="w-5 h-5 text-gray-600" />
-            <h2 className="text-lg font-semibold text-gray-900">So'ngi ko'rilganlar</h2>
+            <Clock className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Recently Viewed</h2>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="w-4 h-4" />
@@ -95,14 +95,14 @@ const RecentlyAccessedSidebar: React.FC<RecentlyAccessedSidebarProps> = ({
           {loading ? (
             <div className="text-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-2" />
-              <p className="text-gray-600">Yuklanmoqda...</p>
+              <p className="text-gray-600 dark:text-gray-400">Loading...</p>
             </div>
           ) : issues.length === 0 ? (
             <div className="text-center py-8">
               <Clock className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-              <p className="text-gray-600">Hozircha hech narsa ko'rilmagan</p>
-              <p className="text-sm text-gray-500 mt-1">
-                Issue'larga kirib ko'ring, ular shu yerda paydo bo'ladi
+              <p className="text-gray-600 dark:text-gray-400">No issues viewed recently</p>
+              <p className="text-sm text-gray-500 dark:text-gray-500 mt-1">
+                Visit some issues and they'll appear here
               </p>
             </div>
           ) : (
@@ -110,13 +110,13 @@ const RecentlyAccessedSidebar: React.FC<RecentlyAccessedSidebarProps> = ({
               {issues.map((issue) => (
                 <div
                   key={issue.id}
-                  className="group bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors"
+                  className="group bg-gray-50 dark:bg-gray-700 rounded-lg p-4 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <Link
                       to={`/issue/${issue.id}`}
                       onClick={onClose}
-                      className="text-sm font-mono text-blue-600 hover:text-blue-800 hover:underline"
+                      className="text-sm font-mono text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 hover:underline"
                     >
                       {issue.id}
                     </Link>
@@ -128,18 +128,18 @@ const RecentlyAccessedSidebar: React.FC<RecentlyAccessedSidebarProps> = ({
                   <Link
                     to={`/issue/${issue.id}`}
                     onClick={onClose}
-                    className="block group-hover:text-blue-900"
+                    className="block group-hover:text-blue-900 dark:group-hover:text-blue-300"
                   >
-                    <h3 className="font-medium text-gray-900 mb-1 line-clamp-2">
+                    <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1 line-clamp-2">
                       {issue.title}
                     </h3>
                   </Link>
 
-                  <p className="text-sm text-gray-600 mb-2 line-clamp-1">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
                     {issue.description}
                   </p>
 
-                  <div className="flex items-center justify-between text-xs text-gray-500">
+                  <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                     <span>{issue.assignee}</span>
                     <span>{formatRelativeTime((issue as any).accessedAt)}</span>
                   </div>
@@ -148,9 +148,9 @@ const RecentlyAccessedSidebar: React.FC<RecentlyAccessedSidebarProps> = ({
                     <Link
                       to={`/issue/${issue.id}`}
                       onClick={onClose}
-                      className="inline-flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800"
+                      className="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
                     >
-                      Ko'rish
+                      View
                       <ExternalLink className="w-3 h-3" />
                     </Link>
                   </div>
